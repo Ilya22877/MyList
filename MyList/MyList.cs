@@ -5,16 +5,20 @@ using System.Linq;
 
 namespace MyList
 {
+    /// <inheritdoc />
     public class MyList<T> : IList<T>
     {
         private const int DefaultCapacity = 4;
 
+        /// <inheritdoc />
         public int Count { get; private set; }
 
+        /// <inheritdoc />
         public bool IsReadOnly => false;
 
         private T[] Array { get; set; }
 
+        /// <inheritdoc />
         public MyList() : this(DefaultCapacity)
         {
         }
@@ -34,16 +38,19 @@ namespace MyList
             Array = collection.ToArray();
         }
 
+        /// <inheritdoc />
         public IEnumerator<T> GetEnumerator()
         {
             return new Enumerator(this);
         }
 
+        /// <inheritdoc />
         IEnumerator IEnumerable.GetEnumerator()
         {
             return GetEnumerator();
         }
 
+        /// <inheritdoc />
         public void Add(T item)
         {
             if (Count == Array.Length)
@@ -54,12 +61,14 @@ namespace MyList
             Count++;
         }
 
+        /// <inheritdoc />
         public void Clear()
         {
             Array = new T[Array.Length];
             Count = 0;
         }
 
+        /// <inheritdoc />
         public bool Contains(T item)
         {
             for (var i = 0; i < Count; i++)
@@ -73,11 +82,13 @@ namespace MyList
             return false;
         }
 
+        /// <inheritdoc />
         public void CopyTo(T[] array, int arrayIndex)
         {
             System.Array.Copy(Array, 0, array, arrayIndex, Count);
         }
 
+        /// <inheritdoc />
         public bool Remove(T item)
         {
             var index = IndexOf(item);
@@ -90,11 +101,13 @@ namespace MyList
             return false;
         }
 
+        /// <inheritdoc />
         public int IndexOf(T item)
         {
             return System.Array.IndexOf(Array, item, 0, Count);
         }
 
+        /// <inheritdoc />
         public void Insert(int index, T item)
         {
             if (index > Count)
@@ -108,6 +121,7 @@ namespace MyList
             Count++;
         }
 
+        /// <inheritdoc />
         public void RemoveAt(int index)
         {
             if (index > Count)
@@ -123,6 +137,7 @@ namespace MyList
             Array[Count] = default(T);
         }
 
+        /// <inheritdoc />
         public T this[int index]
         {
             get
@@ -154,6 +169,7 @@ namespace MyList
             Array = newArray;
         }
 
+        /// <inheritdoc />
         public struct Enumerator : IEnumerator<T>
         {
             private readonly MyList<T> _list;
@@ -167,6 +183,7 @@ namespace MyList
                 _current = default(T);
             }
 
+            /// <inheritdoc />
             public bool MoveNext()
             {
                 if (_index < _list.Count)
@@ -179,16 +196,20 @@ namespace MyList
                 return false;
             }
 
+            /// <inheritdoc />
             public T Current => _current;
 
+            /// <inheritdoc />
             Object IEnumerator.Current => Current;
 
+            /// <inheritdoc />
             void IEnumerator.Reset()
             {
                 _index = 0;
                 _current = default(T);
             }
 
+            /// <inheritdoc />
             public void Dispose()
             {
             }
